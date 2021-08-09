@@ -5,8 +5,8 @@ import { MenuIcon, XIcon } from "@heroicons/react/solid";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useAppContext } from "../pages/_app";
-import logo from "../public/logo.png";
-import whiteLogo from "../public/white_logo.png";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 export default function Navbar() {
   const router = useRouter();
@@ -14,6 +14,7 @@ export default function Navbar() {
   const [cookie, setCookie, removeCookie] = useCookies(["token", "username"]);
   const { showMenu, setShowMenu, username, setUsername, token, setToken } =
     useAppContext();
+  setUsername("user");
   const handleLogout = () => {
     const headers = {
       "Content-Type": "application/json",
@@ -44,24 +45,20 @@ export default function Navbar() {
     <header
       className={
         showMenu
-          ? "font-content bg-black sticky top-0 z-10 h-1/2"
-          : "font-content bg-white sticky top-0 z-10 h-1/2"
+          ? "font-content black-background sticky top-0 z-10 h-1/2 text-white"
+          : "font-content black-background sticky top-0 z-10 h-1/2 text-white px-36"
       }
     >
-      <div className="mx-auto p-5 flex justify-between items-start ">
+      <div className="mx-auto px-10 py-4 flex justify-between items-center">
         <Link
           href="/"
           className="title-font font-medium text-black mb-4 md:mb-0 logo"
         >
           <a>
-            <Image
-              className="logo absolute object-center cursor-pointer"
-              src={showMenu ? whiteLogo : logo}
-              alt="logo"
-            />
+            <h1 className="uppercase font-content font-bold">Legalable</h1>
           </a>
         </Link>{" "}
-        <nav className="title-font font-bold text-sm tracking-wide flex justify-end items-center pt-5">
+        <nav className="title-font font-bold text-sm tracking-wide flex justify-end items-center">
           {!showMenu && (
             <>
               {!username && (
@@ -91,18 +88,22 @@ export default function Navbar() {
                 </Link>
               )}
               {username && (
-                <p className="md:hidden mr-5 text-indigo-600 uppercase">
-                  {username}
+                <p className="text-white">
+                  <FavoriteIcon className="mx-3" />
+                  <AccountCircleIcon />
                 </p>
+                // <p className="md:hidden mr-5 text-indigo-600 uppercase">
+                //   {username}
+                // </p>
               )}
-              {username && (
+              {/* {username && (
                 <p
                   className="md:hidden mr-5 text-black uppercase strike cursor-pointer"
                   onClick={handleLogout}
                 >
                   Log out
                 </p>
-              )}
+              )} */}
             </>
           )}
           {!showMenu ? (

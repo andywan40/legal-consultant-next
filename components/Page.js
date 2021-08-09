@@ -13,10 +13,7 @@ export default function Page({ children }) {
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta charSet="utf-8" />
-        <meta
-          name="description"
-          content="Password Vault | The Most Secure Password Manager"
-        ></meta>
+        <meta name="description" content="Legalable"></meta>
         <link rel="icon" href="/title_logo.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -29,11 +26,13 @@ export default function Page({ children }) {
           rel="stylesheet"
         />
         <script src="https://cdn.rawgit.com/progers/pathseg/master/pathseg.js"></script>
-        <title>Password Vault | The Most Secure Password Manager</title>
+        <title>Legalable</title>
       </Head>
-      <main className="text-gray-400 bg-white body-font">
+      <main className="text-gray-400 main-background body-font">
         <Navbar />
-        {showMenu ? <Menu /> : children}
+        <div className="flex justify-center">
+          {showMenu ? <Menu /> : children}
+        </div>
       </main>
       {!showMenu && <Footer />}
     </>

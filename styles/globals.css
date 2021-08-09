@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+.main-background {
+  background-color: #e5e5e5;
+}
+
+.black-background {
+  background-color: #323237;
+}
+
+.hr {
+  border-color: #c4c4c4;
+}
+
+.type1 {
+  background-color: #70c6c7;
+}
+
+.type2 {
+  background-color: #ffb37b;
+}
+
 @keyframes strike {
   0% {
     width: 0;

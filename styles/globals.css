@@ -22,6 +22,19 @@
   background-color: #ffb37b;
 }
 
+.textarea {
+  border-color: #616161;
+  border-width: 1.5px;
+}
+
+.search-button {
+  background-color: #4b6982;
+}
+
+.search-button:hover {
+  background-color: #324b5e;
+}
+
 @keyframes strike {
   0% {
     width: 0;

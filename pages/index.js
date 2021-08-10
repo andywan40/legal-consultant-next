@@ -61,18 +61,19 @@ export default function Home() {
             行政
           </button>
         </div>
-        <div className="border border-md border-gray-400 text-gray-600 mt-8 table h-full">
+        <div className="border border-md border-gray-400 mt-8 table h-full">
           <textarea
             id="text"
+            placeholder="請輸入"
             value={text}
             onChange={handleChange}
-            className="outline-none w-full h-full table resize-none p-5 main-background"
+            className="outline-none w-full h-full table resize-none p-5 main-background textarea text-gray-700"
           />
         </div>
         <div className="flex justify-center mt-8">
           <button
             onClick={handleSearch}
-            className="border border-black black-background hover:bg-black rounded-lg text-white py-3 px-6 rounded-full w-1/5"
+            className="search-button rounded-lg text-white py-3 px-6 rounded-full w-1/5"
           >
             搜尋
             <SearchIcon className="inline-block w-1/2 h-1/2" />

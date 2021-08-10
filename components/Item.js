@@ -4,10 +4,9 @@ import { useRouter } from "next/router";
 
 export default function Item({ type, isFav, title, content }) {
   const router = useRouter();
-  type = "判決";
-  title = "臺東地方法院  110,易,70  竊盜  刑事  判決";
-  content =
-    "想要提神，又因為遇到之前有在一起吸的，才會吸食。福將公司的副總也知道我工作很拼。我這次是徹底悔悟，出監後不再吸毒，就不會再偷竊了，因為這樣很丟臉。我有1個小孩已經嫁人，我還沒有進來之前都會去看她，我也沒讓小孩知道我進來服刑。我不吸毒的話都還可以生...";
+  const handleFavIconClick = e => {
+    e.stopPropagation();
+  };
   return (
     <div
       onClick={() => router.push("/page2")}
@@ -23,8 +22,24 @@ export default function Item({ type, isFav, title, content }) {
         >
           <span>{type}</span>
         </div>
-        <div className="rounded-lg border border-gray-500 p-1 rounded-full cursor-pointer">
-          <FavoriteIcon className={isFav ? "text-blue-600" : ""} />
+        <div
+          onClick={handleFavIconClick}
+          className="rounded-lg border border-gray-500 p-1 rounded-full cursor-pointer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill={isFav ? "blue" : "none"}
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="1"
+              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+            />
+          </svg>
         </div>
       </div>
       <div className="flex flex-col mt-2">

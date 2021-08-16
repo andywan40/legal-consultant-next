@@ -71,44 +71,44 @@ export default function page1() {
 
   return (
     <Page>
-      <div className="grid grid-cols-12 max-h-screen w-full py-20 ">
-        <div className="col-start-3 col-span-6 border-r border-gray-400">
-          <div className="flex justify-center border-b border-gray-400 pb-6 mx-10 h-8vh">
+      <div className="grid grid-cols-8 max-h-screen w-full py-20 ">
+        <div className="col-start-2 col-span-4 border-r border-gray-400">
+          <div className="flex justify-center border-b border-gray-400 pb-6 mr-5 h-8vh">
             <button
               id="all"
               onClick={() => setSelected("all")}
               className={
                 selected === "all"
-                  ? "border border-gray-400 rounded-lg black-background hover:bg-black text-white py-5 px-10 mx-3 rounded-full flex items-center"
-                  : "border border-gray-400 rounded-lg bg-white hover:bg-gray-100 text-black py-5 px-10 mx-3 rounded-full flex items-center"
+                  ? "category-button-selected flex items-center"
+                  : "category-button flex items-center"
               }
             >
-              <span>全部</span>
+              全部
             </button>
             <button
               id="judgement"
               onClick={() => setSelected("judgement")}
               className={
                 selected === "judgement"
-                  ? "border border-gray-400 rounded-lg black-background hover:bg-black text-white py-5 px-10 mx-3 rounded-full flex items-center"
-                  : "border border-gray-400 rounded-lg bg-white hover:bg-gray-100 text-black py-5 px-10 mx-3 rounded-full flex items-center"
+                  ? "category-button-selected flex items-center"
+                  : "category-button flex items-center"
               }
             >
-              <span>判決</span>
+              判決
             </button>
             <button
               id="explanation"
               onClick={() => setSelected("explanation")}
               className={
                 selected === "explanation"
-                  ? "border border-gray-400 rounded-lg black-background hover:bg-black text-white py-5 px-10 mx-3 rounded-full flex items-center"
-                  : "border border-gray-400 rounded-lg bg-white hover:bg-gray-100 text-black py-5 px-10 mx-3 rounded-full flex items-center"
+                  ? "category-button-selected flex items-center"
+                  : "category-button flex items-center"
               }
             >
-              <span>函釋</span>
+              函釋
             </button>
           </div>
-          <div className="pb-6 mx-10 overflow-auto h-75vh">
+          <div className="pb-6 pr-10 overflow-auto h-75vh">
             {filteredItems &&
               filteredItems.map((item, i) => (
                 <Item
@@ -121,10 +121,10 @@ export default function page1() {
               ))}
           </div>
         </div>
-        <div className="col-start-9 col-span-3">
-          <div className="flex fkex-col items-center justify-center border-b border-gray-400 pb-6 h-8vh"></div>
-          <div className="p-5 overflow-auto h-75vh">
-            <h1 className="text-blue-800 text-lg font-bold">相關條文</h1>
+        <div className="col-start-6 col-span-2">
+          <div className="flex fkex-col items-center justify-center border-b border-gray-400 pb-6 h-8vh ml-10"></div>
+          <div className="pl-10 py-10 overflow-auto h-75vh">
+            <h1 className="title-color text-lg font-bold">相關條文</h1>
             <div className="mt-2">
               {accordions &&
                 accordions.map((accordion, i) => (

@@ -10,6 +10,9 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "#e5e5e5",
     boxShadow: "none",
   },
+  summary: {
+    padding: 0,
+  },
 }));
 
 export default function ItemAccordion({ title, content }) {
@@ -18,17 +21,18 @@ export default function ItemAccordion({ title, content }) {
   content =
     "十八歲以上之竊盜犯、贓物犯，有犯罪之習慣者，得於刑之執行前，令入勞動場所強制工作。刑法第八十四條第一項之期間，自前項強制工作執行完畢之日起算。但強制工作自應執行之日起經過三年未執行者，自該三年之期間屆滿之日起算。";
   return (
-    <div className="border-b border-gray-400">
+    <div className="border-b border-gray-400 accordion">
       <Accordion className={classes.background}>
         <AccordionSummary
+          className={classes.summary}
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <h2>{title}</h2>
+          <h2 className="accordion-title">{title}</h2>
         </AccordionSummary>
         <AccordionDetails className="mt-0">
-          <div className="border-gray-100 p-3 bg-white">{content}</div>
+          <div className="border border-gray-300 p-3 bg-white">{content}</div>
         </AccordionDetails>
       </Accordion>
     </div>

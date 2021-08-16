@@ -5,7 +5,7 @@ import { MenuIcon, XIcon } from "@heroicons/react/solid";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useAppContext } from "../pages/_app";
-import FavoriteIcon from "@material-ui/icons/Favorite";
+import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 export default function Navbar() {
@@ -45,78 +45,84 @@ export default function Navbar() {
     <header
       className={
         showMenu
-          ? "font-content black-background sticky top-0 z-10 h-1/2 text-white"
-          : "font-content black-background sticky top-0 z-10 h-1/2 text-white px-36"
+          ? "font-content navbar-background sticky top-0 z-10 h-1/2 text-white"
+          : "font-content navbar-background sticky top-0 z-10 h-1/2 text-white"
       }
     >
-      <div className="mx-auto px-10 py-4 flex justify-between items-center">
+      <div className="grid grid-cols-8 py-4">
         <Link
           href="/"
-          className="title-font font-medium text-black mb-4 md:mb-0 logo"
+          className="title-font font-medium text-black mb-4 md:mb-0"
         >
-          <a>
-            <h1 className="uppercase font-content font-bold">Legalable</h1>
+          <a className="col-start-2 col-span-4">
+            <h1 className="uppercase font-content font-bold text-xl">
+              Legalable
+            </h1>
           </a>
         </Link>{" "}
-        <nav className="title-font font-bold text-sm tracking-wide flex justify-end items-center">
-          {!showMenu && (
-            <>
-              {!username && (
-                <Link href="/login">
-                  <a
-                    className={
-                      pathname === "/login"
-                        ? "md:hidden mr-5 text-black uppercase active"
-                        : "md:hidden mr-5 text-black uppercase strike"
-                    }
-                  >
-                    Log in
-                  </a>
-                </Link>
-              )}
-              {!username && (
-                <Link href="/signup">
-                  <a
-                    className={
-                      pathname === "/signup"
-                        ? "md:hidden mr-5 text-black uppercase active"
-                        : "md:hidden mr-5 text-black uppercase strike"
-                    }
-                  >
-                    Sign up
-                  </a>
-                </Link>
-              )}
-              {username && (
-                <p className="text-white">
-                  <FavoriteIcon className="mx-3" />
-                  <AccountCircleIcon />
-                </p>
-                // <p className="md:hidden mr-5 text-indigo-600 uppercase">
-                //   {username}
-                // </p>
-              )}
-              {/* {username && (
-                <p
-                  className="md:hidden mr-5 text-black uppercase strike cursor-pointer"
-                  onClick={handleLogout}
-                >
-                  Log out
-                </p>
-              )} */}
-            </>
-          )}
-          {!showMenu ? (
-            <MenuIcon
-              onClick={() => setShowMenu(true)}
-              className="hidden md:block mr-5 text-black h-1/12 w-1/12 cursor-pointer"
-            />
-          ) : (
-            <XIcon
-              onClick={() => setShowMenu(false)}
-              className="block mr-5 text-white h-1/12 w-1/12 cursor-pointer motion-safe:animate-wiggle"
-            />
-          )}
+        <nav className="col-start-6 col-span-2 title-font font-bold text-sm tracking-wide">
+          <div className="flex justify-end">
+            {!showMenu && (
+              <>
+                {!username && (
+                  <Link href="/login">
+                    <a
+                      className={
+                        pathname === "/login"
+                          ? "md:hidden mr-5 text-black uppercase active"
+                          : "md:hidden mr-5 text-black uppercase strike"
+                      }
+                    >
+                      Log in
+                    </a>
+                  </Link>
+                )}
+                {!username && (
+                  <Link href="/signup">
+                    <a
+                      className={
+                        pathname === "/signup"
+                          ? "md:hidden mr-5 text-black uppercase active"
+                          : "md:hidden mr-5 text-black uppercase strike"
+                      }
+                    >
+                      Sign up
+                    </a>
+                  </Link>
+                )}
+                {username && (
+                  <p className="text-white">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6 inline-block mx-3 cursor-pointer"
+                      fill="white"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
+                      />
+                    </svg>
+                    <AccountCircleIcon className="cursor-pointer" />
+                  </p>
+                )}
+              </>
+            )}
+            {!showMenu ? (
+              <MenuIcon
+                onClick={() => setShowMenu(true)}
+                className="hidden md:block mr-5 text-black h-1/12 w-1/12 cursor-pointer"
+              />
+            ) : (
+              <XIcon
+                onClick={() => setShowMenu(false)}
+                className="block mr-5 text-white h-1/12 w-1/12 cursor-pointer motion-safe:animate-wiggle"
+              />
+            )}
+          </div>
         </nav>
       </div>
     </header>

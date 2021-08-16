@@ -2,37 +2,97 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
 .main-background {
   background-color: #e5e5e5;
 }
 
-.black-background {
-  background-color: #323237;
+.navbar-background {
+  background-color: #011f26;
 }
 
 .hr {
   border-color: #c4c4c4;
 }
 
+.category-button {
+  @apply border border-2 rounded-lg bg-white hover:bg-gray-100 py-3 px-8 mx-3 rounded-full;
+  color: #323237;
+  border-color: #011f26;
+}
+
+.category-button-selected {
+  @apply border border-2 rounded-lg hover:bg-black text-white py-3 px-8 mx-3 rounded-full;
+  background-color: #011f26;
+  border-color: #011f26;
+}
+
 .type1 {
-  background-color: #70c6c7;
+  @apply rounded-lg text-white px-5 rounded-full flex items-center mb-1;
+  background-color: #f2a679;
 }
 
 .type2 {
-  background-color: #ffb37b;
+  @apply rounded-lg text-white px-5 rounded-full flex items-center mb-1;
+  background-color: #0f4c59;
 }
 
 .textarea {
+  @apply border rounded-md text-gray-700 outline-none w-full h-full table resize-none p-5;
   border-color: #616161;
   border-width: 1.5px;
 }
 
 .search-button {
-  background-color: #4b6982;
+  border-color: #f26e50;
+  background-color: #fff;
+  color: #f26e50;
+  transition: all 0.2s ease-in-out;
 }
 
 .search-button:hover {
-  background-color: #324b5e;
+  background-color: #f26e50;
+  color: #fff;
+}
+
+.black-font {
+  color: #011f26;
+}
+
+.black-border {
+  border-color: #011f26;
+}
+
+.item:hover {
+  @apply border;
+  border-color: #0f4c59;
+}
+
+.title-color {
+  color: #011f26;
+}
+
+.accordion-title {
+  color: #616161;
+}
+
+.accordion:hover .accordion-title {
+  @apply font-bold;
+  color: #0f4c59;
+}
+
+.Mui-expanded .accordion-title {
+  @apply font-bold;
+  color: #0f4c59;
+}
+
+.bookmark-border {
+  @apply border;
+  border-color: #011f26;
 }
 
 @keyframes strike {
@@ -144,12 +204,6 @@
 .visit-link:active {
   transform: translate(0.5rem, 0.5rem);
   box-shadow: 0px 10px 20px -15px rgba(229, 231, 235, 0.2);
-}
-
-.logo {
-  min-width: 50% !important;
-  min-height: 50% !important;
-  margin: 0 !important;
 }
 
 .icon {

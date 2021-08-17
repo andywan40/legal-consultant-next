@@ -72,8 +72,11 @@
   border-color: #011f26;
 }
 
-.item:hover {
+.item {
   @apply border;
+}
+
+.item:hover {
   border-color: #0f4c59;
 }
 

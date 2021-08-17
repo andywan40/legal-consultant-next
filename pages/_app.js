@@ -14,14 +14,12 @@ export function useAppContext() {
 
 function MyApp({ Component, pageProps }) {
   const [mounted, setMounted] = useState(false);
-  const [cookie] = useCookies(["token", "username"]);
+  const [cookie] = useCookies(["token", "username", "items"]);
   const [username, setUsername] = useState(cookie["username"] || null);
   const [token, setToken] = useState(cookie["token"] || null);
+  const [items, setItems] = useState(cookie["items"] || []);
   const [showMenu, setShowMenu] = useState(false);
-  const [updateCount, setUpdateCount] = useState(0);
-  const [passwords, setPasswords] = useState([]);
-  const [type, setType] = useState("all");
-  const [checkedIds, setCheckedIds] = useState([]);
+  const [savedIds, setSavedIds] = useState([]);
   const router = useRouter();
   const protectedRoutes = ["/dashboard"];
 
@@ -48,14 +46,10 @@ function MyApp({ Component, pageProps }) {
             setUsername,
             token,
             setToken,
-            updateCount,
-            setUpdateCount,
-            passwords,
-            setPasswords,
-            type,
-            setType,
-            checkedIds,
-            setCheckedIds,
+            items,
+            setItems,
+            savedIds,
+            setSavedIds,
           }}
         >
           <AuthorizedRoute protectedRoutes={protectedRoutes}>

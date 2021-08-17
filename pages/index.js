@@ -1,12 +1,18 @@
 import { useState, useEffect } from "react";
-import Page from "../components/Page";
-import SearchIcon from "@material-ui/icons/Search";
 import { useRouter } from "next/router";
+import { useCookies } from "react-cookie";
+import SearchIcon from "@material-ui/icons/Search";
+import { useAppContext } from "./_app";
+import Page from "../components/Page";
+import { data } from "../helpers/data";
+import axios from "axios";
 
 export default function Home() {
   const router = useRouter();
-  const [text, setText] = useState(() =>
-    JSON.parse(localStorage.getItem("text"))
+  const { setItems } = useAppContext();
+  const [cookie, setCookie] = useCookies(["items"]);
+  const [text, setText] = useState(
+    () => JSON.parse(localStorage.getItem("text")) || ""
   );
   useEffect(() => {
     localStorage.setItem("text", JSON.stringify(text));
@@ -17,12 +23,27 @@ export default function Home() {
     setText(e.target.value);
   };
   const handleSearch = e => {
-    router.push("/page1");
+    if (!text.trim()) {
+      alert("請輸入案例事實");
+    } else {
+      //api call
+      // axios
+      //   .post("http://140.112.107.1:5000/", { text })
+      //   .then(res => {
+      //     console.log(res);
+      //   })
+      //   .catch(e => {
+      //     console.log(e);
+      //   });
+      setItems(data);
+      setCookie("items", JSON.stringify(data));
+      router.push("/results");
+    }
   };
   return (
     <Page>
-      <div className="text-center flex flex-col w-4/6 p-24 min-h-screen">
-        <h1 className="black-font font-bold text-xl ">案例事實</h1>
+      <div className="text-center flex flex-col w-4/6 p-24 pt-16 min-h-screen">
+        <h1 className="black-font font-bold text-xl">案例事實</h1>
         <hr className="border hr mt-3"></hr>
         <h6 className="text-black mt-10">請選擇法律類別</h6>
         <div className="mt-5">

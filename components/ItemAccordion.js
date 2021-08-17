@@ -13,6 +13,11 @@ const useStyles = makeStyles(theme => ({
   summary: {
     padding: 0,
   },
+  details: {
+    padding: "1rem",
+    paddingTop: 0,
+    marginTop: 0,
+  },
 }));
 
 export default function ItemAccordion({ title, content }) {
@@ -31,7 +36,7 @@ export default function ItemAccordion({ title, content }) {
         >
           <h2 className="accordion-title">{title}</h2>
         </AccordionSummary>
-        <AccordionDetails className="mt-0">
+        <AccordionDetails className={classes.details}>
           <div className="border border-gray-300 p-3 bg-white">{content}</div>
         </AccordionDetails>
       </Accordion>

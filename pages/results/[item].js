@@ -6,24 +6,49 @@ import { useRouter } from "next/router";
 
 export default function Item({ no }) {
   const router = useRouter();
-  console.log(router);
-  const { items } = useAppContext();
+  const { savedIds, setSavedIds, items } = useAppContext();
   const [itemObj, setItemObj] = useState({});
   const [isSaved, setIsSaved] = useState(false);
   const accordions = [];
-  console.log(items);
   useEffect(() => {
+    let match = false;
     for (let item of items) {
       if (item.no === no) {
-        setItemObj(itemObj);
+        setItemObj({ ...item, date: new Date(item.date) });
+        match = true;
         break;
       }
     }
-    // if (Object.keys(itemObj).length === 0) {
-    //   router.push("/");
-    // }
+    if (!match) {
+      router.push("/");
+    }
   }, []);
 
+  const handleCopyText = e => {
+    navigator.clipboard.writeText(itemObj.judgement);
+    alert("成功複製");
+  };
+
+  const toggleSave = e => {
+    e.stopPropagation();
+    if (savedIds.includes(no)) {
+      let newSavedIds = savedIds.filter(id => id !== no);
+      setSavedIds(newSavedIds);
+    } else {
+      setSavedIds([...savedIds, no]);
+    }
+  };
+
+  useEffect(() => {
+    if (savedIds.includes(no)) {
+      setIsSaved(true);
+    } else {
+      setIsSaved(false);
+    }
+    localStorage.setItem("savedIds", JSON.stringify(savedIds));
+  }, [savedIds]);
+
+  console.log(itemObj);
   return (
     <Page>
       <div className="grid grid-cols-8 h-screen max-h-screen w-full py-20 ">
@@ -35,12 +60,13 @@ export default function Item({ no }) {
                   itemObj.type === "判決" ? "type1 py-1" : "type2 py-1"
                 }
               >
-                <span>{itemObj.type}</span>
+                <span className="font-bold">{itemObj.type}</span>
               </div>
               <div>
                 <svg
+                  onClick={handleCopyText}
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 mr-2 inline-block rounded-lg bookmark-border p-1 rounded-full cursor-pointer"
+                  className="icon h-6 w-6 mr-2 inline-block rounded-lg bookmark-border p-1 rounded-full cursor-pointer"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="#011f26"
@@ -54,7 +80,7 @@ export default function Item({ no }) {
                 </svg>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 mr-2 inline-block rounded-lg bookmark-border p-1 rounded-full cursor-pointer"
+                  className="icon h-6 w-6 mr-2 inline-block rounded-lg bookmark-border p-1 rounded-full cursor-pointer"
                   viewBox="0 0 20 20"
                   fill="#011f26"
                 >
@@ -66,7 +92,7 @@ export default function Item({ no }) {
                 </svg>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  //   onClick={() => setIsFav(!isFav)}
+                  onClick={toggleSave}
                   className="h-6 w-6 inline-block rounded-lg bookmark-border p-1 rounded-full cursor-pointer"
                   fill={isSaved ? "#011f26" : "none"}
                   viewBox="0 0 24 24"
@@ -81,11 +107,52 @@ export default function Item({ no }) {
                 </svg>
               </div>
             </div>
-            <div className="bg-blue-100 h-full w-full">文件</div>
+            <div className="content h-full w-full p-2">
+              <p>
+                <span className="font-bold">裁判字號】</span>
+                {no}
+              </p>
+              {itemObj?.date && (
+                <p>
+                  <span className="font-bold">【裁判日期】</span>
+                  {`民國 ${itemObj?.date.getFullYear() - 1911} 年 ${
+                    itemObj?.date.getMonth() + 1
+                  } 月 ${itemObj?.date.getDate()} 日`}
+                </p>
+              )}
+              <p>
+                <span className="font-bold">【裁判案由】</span>
+                {itemObj.reason}
+              </p>
+              {Object.keys(itemObj).length !== 0 && (
+                <div>
+                  {Array.isArray(itemObj?.judgement) ? (
+                    <div>
+                      <span className="font-bold">【裁判內文】</span>
+                      {itemObj?.judgement.map((p, i) => (
+                        <p key={i}>{p}</p>
+                      ))}
+                    </div>
+                  ) : (
+                    <div>
+                      <span className="font-bold">【裁判內文】</span>
+                      <div>
+                        {itemObj &&
+                          itemObj?.judgement.split("\r\n").map((l, i) => (
+                            <p key={i} className="tracking-wider">
+                              {l}
+                            </p>
+                          ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
         <div className="col-start-6 col-span-2">
-          <div className="p-6 overflow-auto border-t border-gray-400 h-35vh mb-10">
+          {/* <div className="p-6 overflow-auto border-t border-gray-400 h-35vh mb-10">
             <h1 className="title-color text-lg font-bold">歷審裁判</h1>
             <div className="mt-2">
               {accordions &&
@@ -93,8 +160,8 @@ export default function Item({ no }) {
                   <ItemLink key={i} title={1} content={1} />
                 ))}
             </div>
-          </div>
-          <div className="p-6 overflow-auto h-35vh">
+          </div> */}
+          <div className="p-6 overflow-auto border-t border-gray-400 h-75vh">
             <h1 className="title-color text-lg font-bold">相關條文</h1>
             <div className="mt-2">
               {accordions &&

@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }) {
   const [cookie] = useCookies(["token", "username", "items"]);
   const [username, setUsername] = useState(cookie["username"] || null);
   const [token, setToken] = useState(cookie["token"] || null);
-  const [items, setItems] = useState(cookie["items"] || []);
+  const [items, setItems] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
   const [savedIds, setSavedIds] = useState([]);
   const router = useRouter();
@@ -27,7 +27,8 @@ function MyApp({ Component, pageProps }) {
     const handleRouteChange = (url, { shallow }) => {
       setShowMenu(false);
     };
-
+    setSavedIds(JSON.parse(localStorage.getItem("savedIds")) || []);
+    setItems(JSON.parse(localStorage.getItem("items")) || []);
     router.events.on("routeChangeComplete", handleRouteChange);
     setMounted(true);
     return () => {

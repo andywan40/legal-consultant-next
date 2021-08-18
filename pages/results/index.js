@@ -7,7 +7,6 @@ import Page from "../../components/Page";
 
 export default function results() {
   const { items } = useAppContext();
-  const [cookie, setCookie] = useCookies(["items", "token"]);
   const [filteredItems, setFilteredItems] = useState(items);
   const [accordions, setAccordions] = useState([
     1, 2, 3, 4, 5, 6, 7, 6, 6, 6, 6, 6, 6, 6, 6, 6,

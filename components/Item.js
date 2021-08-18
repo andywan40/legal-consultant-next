@@ -7,7 +7,7 @@ export default function Item({ type, court, no, sys, reason, mainText }) {
   const router = useRouter();
   const { savedIds, setSavedIds } = useAppContext();
   const [isSaved, setIsSaved] = useState(false);
-  const handleFavIconClick = e => {
+  const toggleSave = e => {
     e.stopPropagation();
     if (savedIds.includes(no)) {
       let newSavedIds = savedIds.filter(id => id !== no);
@@ -22,6 +22,7 @@ export default function Item({ type, court, no, sys, reason, mainText }) {
     } else {
       setIsSaved(false);
     }
+    localStorage.setItem("savedIds", JSON.stringify(savedIds));
   }, [savedIds]);
   return (
     <Link href="/results/[no]" as={`/results/${no}`}>
@@ -31,7 +32,7 @@ export default function Item({ type, court, no, sys, reason, mainText }) {
             <span>{type}</span>
           </div>
           <div
-            onClick={handleFavIconClick}
+            onClick={toggleSave}
             className="rounded-lg bookmark-border p-1 rounded-full cursor-pointer"
           >
             <svg

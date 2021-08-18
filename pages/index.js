@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { useCookies } from "react-cookie";
 import SearchIcon from "@material-ui/icons/Search";
 import { useAppContext } from "./_app";
 import Page from "../components/Page";
@@ -10,7 +9,6 @@ import axios from "axios";
 export default function Home() {
   const router = useRouter();
   const { setItems } = useAppContext();
-  const [cookie, setCookie] = useCookies(["items"]);
   const [text, setText] = useState(
     () => JSON.parse(localStorage.getItem("text")) || ""
   );
@@ -36,7 +34,7 @@ export default function Home() {
       //     console.log(e);
       //   });
       setItems(data);
-      setCookie("items", JSON.stringify(data));
+      localStorage.setItem("items", JSON.stringify(data));
       router.push("/results");
     }
   };

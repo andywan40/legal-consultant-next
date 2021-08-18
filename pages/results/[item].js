@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
+import { useRouter } from "next/router";
 import { useAppContext } from "../_app";
 import Page from "../../components/Page";
 import ItemAccordion from "../../components/ItemAccordion";
-import { useRouter } from "next/router";
 
 export default function Item({ no }) {
   const router = useRouter();
   const { savedIds, setSavedIds, items } = useAppContext();
   const [itemObj, setItemObj] = useState({});
   const [isSaved, setIsSaved] = useState(false);
-  const accordions = [];
   useEffect(() => {
     let match = false;
     for (let item of items) {
@@ -27,6 +28,17 @@ export default function Item({ no }) {
   const handleCopyText = e => {
     navigator.clipboard.writeText(itemObj.judgement);
     alert("成功複製");
+  };
+
+  const handlePDFDownload = e => {
+    const input = document.getElementById("divToDownload");
+    html2canvas(input).then(canvas => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF();
+      pdf.addImage(imgData, "JPEG", 0, 0);
+      // pdf.output('dataurlnewwindow');
+      pdf.save("download.pdf");
+    });
   };
 
   const toggleSave = e => {
@@ -53,7 +65,7 @@ export default function Item({ no }) {
     <Page>
       <div className="grid grid-cols-8 h-screen max-h-screen w-full py-20 ">
         <div className="col-start-2 col-span-4 border-r border-t border-gray-400">
-          <div className="pb-6 pr-5 overflow-auto h-75vh">
+          <div id="divToDownload" className="pb-6 pr-5 overflow-auto h-75vh">
             <div className="flex justify-between py-5">
               <div
                 className={
@@ -79,6 +91,7 @@ export default function Item({ no }) {
                   />
                 </svg>
                 <svg
+                  onClick={handlePDFDownload}
                   xmlns="http://www.w3.org/2000/svg"
                   className="icon h-6 w-6 mr-2 inline-block rounded-lg bookmark-border p-1 rounded-full cursor-pointer"
                   viewBox="0 0 20 20"
@@ -164,8 +177,8 @@ export default function Item({ no }) {
           <div className="p-6 overflow-auto border-t border-gray-400 h-75vh">
             <h1 className="title-color text-lg font-bold">相關條文</h1>
             <div className="mt-2">
-              {accordions &&
-                accordions.map((accordion, i) => (
+              {itemObj?.relatedIssues &&
+                itemObj?.relatedIssues.map((issue, i) => (
                   <ItemAccordion key={i} title={1} content={1} />
                 ))}
             </div>

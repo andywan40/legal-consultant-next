@@ -11,9 +11,11 @@ export default function Item({ no }) {
   const { savedIds, setSavedIds, items } = useAppContext();
   const [itemObj, setItemObj] = useState({});
   const [isSaved, setIsSaved] = useState(false);
+
   useEffect(() => {
     let match = false;
     for (let item of items) {
+      console.log(item.no);
       if (item.no === no) {
         setItemObj({ ...item, date: new Date(item.date) });
         match = true;

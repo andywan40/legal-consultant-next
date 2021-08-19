@@ -5,6 +5,7 @@ import { useAppContext } from "./_app";
 import Page from "../components/Page";
 import { data } from "../helpers/data";
 import axios from "axios";
+import qs from "qs";
 
 export default function Home() {
   const router = useRouter();
@@ -16,7 +17,7 @@ export default function Home() {
     localStorage.setItem("text", JSON.stringify(text));
   }, [text]);
 
-  const [selected, setSelected] = useState("civil");
+  const [selected, setSelected] = useState("criminal");
   const handleChange = e => {
     setText(e.target.value);
   };
@@ -24,18 +25,24 @@ export default function Home() {
     if (!text.trim()) {
       alert("請輸入案例事實");
     } else {
+      const headers = {
+        "Content-Type": "application/x-www-form-urlencoded",
+      };
       //api call
-      // axios
-      //   .post("http://140.112.107.1:5000/", { text })
-      //   .then(res => {
-      //     console.log(res);
-      //   })
-      //   .catch(e => {
-      //     console.log(e);
-      //   });
-      setItems(data);
-      localStorage.setItem("items", JSON.stringify(data));
-      router.push("/results");
+      axios
+        .post(`http://140.112.107.1:5000/`, qs.stringify({ text }), {
+          headers: headers,
+        })
+        .then(res => {
+          console.log(res);
+          setItems(res.data);
+          localStorage.setItem("items", JSON.stringify(res.data));
+          router.push("/results");
+        })
+        .catch(e => {
+          console.log(e);
+          alert("錯誤，稍後再試");
+        });
     }
   };
   return (

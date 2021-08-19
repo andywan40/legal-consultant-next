@@ -110,12 +110,12 @@ export default function Navbar() {
                         </svg>
                       </a>
                     </Link>
-                    <AccountCircleIcon className="cursor-pointer" />
+                    {/* <AccountCircleIcon className="cursor-pointer" /> */}
                   </p>
                 )}
               </>
             )}
-            {!showMenu ? (
+            {/* {!showMenu ? (
               <MenuIcon
                 onClick={() => setShowMenu(true)}
                 className="hidden md:block mr-5 text-black h-1/12 w-1/12 cursor-pointer"
@@ -125,7 +125,7 @@ export default function Navbar() {
                 onClick={() => setShowMenu(false)}
                 className="block mr-5 text-white h-1/12 w-1/12 cursor-pointer motion-safe:animate-wiggle"
               />
-            )}
+            )} */}
           </div>
         </nav>
       </div>

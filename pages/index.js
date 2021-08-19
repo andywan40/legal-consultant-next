@@ -47,7 +47,7 @@ export default function Home() {
   };
   return (
     <Page>
-      <div className="text-center flex flex-col w-4/6 p-24 pt-16 min-h-screen">
+      <div className="text-center flex flex-col w-4/6 md:w-5/6 md:p-12 lg:p-16 p-24 pt-16 min-h-screen">
         <h1 className="black-font font-bold text-xl">案例事實</h1>
         <hr className="border hr mt-3"></hr>
         <h6 className="text-black mt-10">請選擇法律類別</h6>
@@ -98,7 +98,7 @@ export default function Home() {
         <div className="flex justify-center mt-8">
           <button
             onClick={handleSearch}
-            className="search-button border border-2 font-bold rounded-lg py-3 px-6 rounded-full w-1/5"
+            className="search-button inline-block flex justify-center items-center border border-2 font-bold rounded-lg py-3 px-6 rounded-full "
           >
             搜尋
             <SearchIcon className="inline-block w-1/2 h-1/2" />

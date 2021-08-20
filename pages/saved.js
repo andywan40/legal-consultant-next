@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useAppContext } from "./_app";
 import Item from "../components/Item";
 import Page from "../components/Page";
-import { useAppContext } from "./_app";
 
 export default function saved() {
-  const { items, setItems, savedIds } = useAppContext();
+  const { items, savedIds } = useAppContext();
   const [savedItems, setSavedItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [selected, setSelected] = useState("all");

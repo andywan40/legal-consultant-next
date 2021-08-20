@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useCookies } from "react-cookie";
 import { useAppContext } from "../_app";
 import Item from "../../components/Item";
 import ItemAccordion from "../../components/ItemAccordion";
 import Page from "../../components/Page";
 
 export default function results() {
-  const { items } = useAppContext();
+  const { items, potentialLaws } = useAppContext();
   const [filteredItems, setFilteredItems] = useState(items);
-  const [accordions, setAccordions] = useState([
-    1, 2, 3, 4, 5, 6, 7, 6, 6, 6, 6, 6, 6, 6, 6, 6,
-  ]);
-
   const [selected, setSelected] = useState("all");
-
   useEffect(() => {
     if (selected === "all") {
       setFilteredItems(items);
@@ -86,13 +80,17 @@ export default function results() {
           </div>
         </div>
         <div className="col-start-6 col-span-2">
-          <div className="flex fkex-col items-center justify-center border-b border-gray-400 pb-6 h-8vh ml-10"></div>
+          <div className="flex flex-col items-center justify-center border-b border-gray-400 pb-6 h-8vh ml-10"></div>
           <div className="pl-10 py-10 overflow-auto h-75vh">
             <h1 className="title-color text-lg font-bold">相關條文</h1>
             <div className="mt-2">
-              {accordions &&
-                accordions.map((accordion, i) => (
-                  <ItemAccordion key={i} title={1} content={1} />
+              {potentialLaws &&
+                potentialLaws.map((law, i) => (
+                  <ItemAccordion
+                    key={i}
+                    title={law.title}
+                    content={law.content}
+                  />
                 ))}
             </div>
           </div>

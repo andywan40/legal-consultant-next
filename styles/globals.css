@@ -114,3 +114,7 @@
 .icon:active {
   padding-top: 5px;
 }
+
+.MuiCircularProgress-svg {
+  color: #011f26;
+}

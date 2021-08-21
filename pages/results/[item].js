@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 import { useRouter } from "next/router";
@@ -65,7 +66,12 @@ export default function Item({ no }) {
   return (
     <Page>
       {Object.keys(itemObj).length !== 0 ? (
-        <div className="grid grid-cols-8 h-screen max-h-screen w-full py-20 ">
+        <div className="grid grid-cols-8 h-screen max-h-screen w-full pt-16 py-20 ">
+          {/* <div className="col-start-2 col-span-7 mb-2">
+            <Link href="/results">
+              <button>查詢結果</button>
+            </Link>
+          </div> */}
           <div className="col-start-2 col-span-4 border-r border-t border-gray-400">
             <div id="divToDownload" className="pb-6 pr-5 overflow-auto h-75vh">
               <div className="flex justify-between py-5">

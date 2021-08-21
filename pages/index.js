@@ -24,10 +24,10 @@ export default function Home() {
     setText(e.target.value);
   };
   const handleSearch = e => {
-    setIsLoading(true);
     if (!text.trim()) {
       alert("請輸入案例事實");
     } else {
+      setIsLoading(true);
       const headers = {
         "Content-Type": "application/x-www-form-urlencoded",
       };

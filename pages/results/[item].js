@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { jsPDF } from "jspdf";
-import html2canvas from "html2canvas";
 import { useRouter } from "next/router";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { useAppContext } from "../_app";
 import Page from "../../components/Page";
 import ItemLink from "../../components/ItemLink";
+import { toPng, toJpeg, toBlob, toPixelData, toSvg } from "html-to-image";
 
 export default function Item({ no }) {
   const router = useRouter();
@@ -33,15 +32,19 @@ export default function Item({ no }) {
     alert("成功複製");
   };
 
+  //* working (svg file)
   const handlePDFDownload = e => {
     const input = document.getElementById("divToDownload");
-    html2canvas(input).then(canvas => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF();
-      pdf.addImage(imgData, "JPEG", 0, 0);
-      // pdf.output('dataurlnewwindow');
-      pdf.save("download.pdf");
-    });
+    toSvg(input)
+      .then(dataUrl => {
+        const link = document.createElement("a");
+        link.download = `${no}.svg`;
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   const toggleSave = e => {
@@ -73,7 +76,7 @@ export default function Item({ no }) {
             </Link>
           </div> */}
           <div className="col-start-2 col-span-4 border-r border-t border-gray-400">
-            <div id="divToDownload" className="pb-6 pr-5 overflow-auto h-75vh">
+            <div className="pb-6 pr-5 overflow-auto h-75vh">
               <div className="flex justify-between py-5">
                 <div
                   className={
@@ -148,7 +151,7 @@ export default function Item({ no }) {
                 {Object.keys(itemObj).length !== 0 && (
                   <div>
                     {Array.isArray(itemObj?.judgement) ? (
-                      <div>
+                      <div id="divToDownload">
                         <span className="font-bold">【裁判內文】</span>
                         {itemObj?.judgement.map((p, i) => (
                           <p key={i}>{p}</p>
@@ -157,7 +160,7 @@ export default function Item({ no }) {
                     ) : (
                       <div>
                         <span className="font-bold">【裁判內文】</span>
-                        <div>
+                        <div id="divToDownload">
                           {itemObj &&
                             itemObj?.judgement.split("\r\n").map((l, i) => (
                               <p key={i} className="tracking-wider">

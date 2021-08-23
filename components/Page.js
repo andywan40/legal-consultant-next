@@ -1,13 +1,9 @@
 import React from "react";
 import Head from "next/head";
 import Navbar from "./Navbar";
-import Menu from "./Menu";
 import Footer from "./Footer";
-// import { useAppContext } from "../context/AppContext";
-import { useAppContext } from "../pages/_app";
 
 export default function Page({ children }) {
-  const { showMenu } = useAppContext();
   return (
     <>
       <Head>
@@ -30,11 +26,9 @@ export default function Page({ children }) {
       </Head>
       <main className="text-gray-400 main-background body-font">
         <Navbar />
-        <div className="flex justify-center">
-          {showMenu ? <Menu /> : children}
-        </div>
+        <div className="flex justify-center">{children}</div>
       </main>
-      {!showMenu && <Footer />}
+      <Footer />
     </>
   );
 }

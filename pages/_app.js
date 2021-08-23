@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 // import { CookiesProvider, useCookies } from "react-cookie";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import AuthorizedRoute from "../components/AuthorizedRoute";
 import theme from "../helpers/theme";
 
 const AppContext = createContext();
@@ -48,12 +47,12 @@ function MyApp({ Component, pageProps }) {
           setSavedIds,
         }}
       >
-        <AuthorizedRoute protectedRoutes={protectedRoutes}>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Component {...pageProps} />
-          </ThemeProvider>
-        </AuthorizedRoute>
+        {/* <AuthorizedRoute protectedRoutes={protectedRoutes}> */}
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </ThemeProvider>
+        {/* </AuthorizedRoute> */}
       </AppContext.Provider>
       // </CookiesProvider>
     )

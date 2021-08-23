@@ -6,6 +6,7 @@ import { useAppContext } from "../_app";
 import Page from "../../components/Page";
 import ItemLink from "../../components/ItemLink";
 import { toPng, toJpeg, toBlob, toPixelData, toSvg } from "html-to-image";
+import download from "downloadjs";
 
 export default function Item({ no }) {
   const router = useRouter();
@@ -33,17 +34,34 @@ export default function Item({ no }) {
   };
 
   //* working (svg file)
+  // const handlePDFDownload = e => {
+  //   const input = document.getElementById("divToDownload");
+  //   toSvg(input)
+  //     .then(dataUrl => {
+  //       const link = document.createElement("a");
+  //       link.download = `${no}.svg`;
+  //       link.href = dataUrl;
+  //       link.click();
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // };
+
+  //* working (png file)
   const handlePDFDownload = e => {
     const input = document.getElementById("divToDownload");
-    toSvg(input)
-      .then(dataUrl => {
-        const link = document.createElement("a");
-        link.download = `${no}.svg`;
-        link.href = dataUrl;
-        link.click();
+    toPng(input)
+      .then(function (dataUrl) {
+        var img = new Image();
+        img.src = dataUrl;
+        download(dataUrl, "img.png");
+        // const pdf = new jsPDF();
+        // pdf.addImage(img, "PNG", 0, 0);
+        // pdf.save("123.pdf");
       })
-      .catch(err => {
-        console.log(err);
+      .catch(function (error) {
+        console.error("oops, something went wrong!", error);
       });
   };
 

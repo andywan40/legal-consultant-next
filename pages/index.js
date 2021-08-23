@@ -38,10 +38,10 @@ export default function Home() {
         })
         .then(res => {
           console.log(res);
-          setItems(res.data);
-          //setPotentialLaws(res.data)
-          localStorage.setItem("items", JSON.stringify(res.data));
-          //localStorage.setItem("potentialLaws", JSON.stringify(res.data));
+          setPotentialLaws(res.data[0]);
+          setItems(res.data[1]);
+          localStorage.setItem("items", JSON.stringify(res.data[1]));
+          localStorage.setItem("potentialLaws", JSON.stringify(res.data[0]));
           router.push("/results");
           //setIsLoading(false);
         })

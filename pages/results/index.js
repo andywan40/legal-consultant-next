@@ -80,18 +80,28 @@ export default function results() {
           </div>
         </div>
         <div className="col-start-6 col-span-2">
-          <div className="flex flex-col items-center justify-center border-b border-gray-400 pb-6 h-8vh ml-10"></div>
-          <div className="pl-10 py-10 overflow-auto h-75vh">
-            <h1 className="title-color text-lg font-bold">相關條文</h1>
+          <div className="flex flex-col items-center justify-center border-b border-gray-400 pb-6 h-8vh ml-8"></div>
+          <div className="pl-8 pr-2 py-10 overflow-auto h-75vh">
+            <h1 className="title-color text-lg font-bold">可能適用條文</h1>
             <div className="mt-2">
               {potentialLaws &&
-                potentialLaws.map((law, i) => (
-                  <ItemAccordion
-                    key={i}
-                    title={law.title}
-                    content={law.content}
-                  />
-                ))}
+                potentialLaws.map((law, i) => {
+                  let content = "";
+                  if (Array.isArray(law[1])) {
+                    for (let el of law[1]) {
+                      content += el.content;
+                    }
+                  } else {
+                    content = law[1].content;
+                  }
+                  return (
+                    <ItemAccordion
+                      key={i}
+                      issueRef={law[0]}
+                      content={content}
+                    />
+                  );
+                })}
             </div>
           </div>
         </div>

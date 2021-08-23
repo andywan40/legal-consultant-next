@@ -32,6 +32,7 @@ export default function Home() {
         "Content-Type": "application/x-www-form-urlencoded",
       };
       //api call
+      //TODO
       axios
         .post(`https://140.112.107.1:5000/`, qs.stringify({ text }), {
           headers: headers,
@@ -48,6 +49,7 @@ export default function Home() {
         .catch(e => {
           console.log(e);
           alert("錯誤，稍後再試");
+          setIsLoading(false);
         });
     }
   };

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 import { useRouter } from "next/router";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -30,7 +31,9 @@ export default function Item({ no }) {
 
   const handleCopyText = e => {
     navigator.clipboard.writeText(itemObj.judgement);
-    alert("成功複製");
+    setTimeout(() => {
+      alert("成功複製");
+    }, 100);
   };
 
   //* working (svg file)
@@ -49,20 +52,44 @@ export default function Item({ no }) {
   // };
 
   //* working (png file)
+  // const handlePDFDownload = e => {
+  //   const input = document.getElementById("divToDownload");
+  //   toPng(input)
+  //     .then(function (dataUrl) {
+  //       var img = new Image();
+  //       img.src = dataUrl;
+  //       download(dataUrl, "img.png");
+  //       // const pdf = new jsPDF();
+  //       // pdf.addImage(img, "PNG", 0, 0);
+  //       // pdf.save("123.pdf");
+  //     })
+  //     .catch(function (error) {
+  //       console.error("oops, something went wrong!", error);
+  //     });
+  // };
+
+  //* not working (pdf file)
   const handlePDFDownload = e => {
     const input = document.getElementById("divToDownload");
-    toPng(input)
-      .then(function (dataUrl) {
-        var img = new Image();
-        img.src = dataUrl;
-        download(dataUrl, "img.png");
-        // const pdf = new jsPDF();
-        // pdf.addImage(img, "PNG", 0, 0);
-        // pdf.save("123.pdf");
-      })
-      .catch(function (error) {
-        console.error("oops, something went wrong!", error);
-      });
+    const divHeight = input.clientHeight;
+    const divWidth = input.clientWidth;
+    const scrollHeight = input.scrollHeight;
+    const scrollWidth = input.scrollWidth;
+
+    const ratio = divHeight / divWidth;
+
+    html2canvas(input, {
+      width: scrollWidth,
+      height: scrollHeight,
+    }).then(canvas => {
+      const imgData = canvas.toDataURL("image/png");
+      console.log(imgData);
+      const doc = new jsPDF("p", "mm");
+      // const width = doc.internal.pageSize.getWidth();
+      // let height = doc.internal.pageSize.getHeight();
+      doc.addImage(imgData, "PNG", 10, 10);
+      doc.save("sample-file.pdf");
+    });
   };
 
   const toggleSave = e => {

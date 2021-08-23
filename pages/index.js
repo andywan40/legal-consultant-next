@@ -33,7 +33,7 @@ export default function Home() {
       };
       //api call
       axios
-        .post(`http://140.112.107.1:5000/`, qs.stringify({ text }), {
+        .post(`https://140.112.107.1:5000/`, qs.stringify({ text }), {
           headers: headers,
         })
         .then(res => {
@@ -47,35 +47,7 @@ export default function Home() {
         })
         .catch(e => {
           console.log(e);
-          // alert("錯誤，稍後再試");
-          setItems(data);
-          localStorage.setItem("items", JSON.stringify(data));
-          setPotentialLaws([
-            {
-              title: 1,
-              content: 1,
-            },
-            {
-              title: 1,
-              content: 1,
-            },
-            {
-              title: 1,
-              content: 1,
-            },
-            {
-              title: 1,
-              content: 1,
-            },
-            {
-              title: 1,
-              content: 1,
-            },
-          ]);
-          setTimeout(() => {
-            router.push("/results");
-            //setIsLoading(false);
-          }, 5000);
+          alert("錯誤，稍後再試");
         });
     }
   };

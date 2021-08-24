@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
-import html2canvas from "html2canvas";
-import { jsPDF } from "jspdf";
 import { useRouter } from "next/router";
+import { Document, Paragraph, TextRun } from "docx";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { useAppContext } from "../_app";
+import { saveDocumentToFile } from "../../helpers/files";
 import Page from "../../components/Page";
 import ItemLink from "../../components/ItemLink";
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from "html-to-image";
-import download from "downloadjs";
+// import html2canvas from "html2canvas";
+// import { jsPDF } from "jspdf";
+// import { toPng, toJpeg, toBlob, toPixelData, toSvg } from "html-to-image";
+// import download from "downloadjs";
 
 export default function Item({ no }) {
   const router = useRouter();
@@ -68,28 +70,36 @@ export default function Item({ no }) {
   //     });
   // };
 
-  //* not working (pdf file)
-  const handlePDFDownload = e => {
-    const input = document.getElementById("divToDownload");
-    const divHeight = input.clientHeight;
-    const divWidth = input.clientWidth;
-    const scrollHeight = input.scrollHeight;
-    const scrollWidth = input.scrollWidth;
+  //* working (docx file)
+  const handleDocDownload = e => {
+    let text = [];
+    if (Array.isArray(itemObj.judgement)) {
+      for (let el of itemObj.judgement) {
+        text.push(
+          new Paragraph({
+            children: [new TextRun(el)],
+          })
+        );
+      }
+    } else {
+      for (let el of itemObj.judgement.split("\r\n")) {
+        text.push(
+          new Paragraph({
+            children: [new TextRun(el)],
+          })
+        );
+      }
+    }
 
-    const ratio = divHeight / divWidth;
-
-    html2canvas(input, {
-      width: scrollWidth,
-      height: scrollHeight,
-    }).then(canvas => {
-      const imgData = canvas.toDataURL("image/png");
-      console.log(imgData);
-      const doc = new jsPDF("p", "mm");
-      // const width = doc.internal.pageSize.getWidth();
-      // let height = doc.internal.pageSize.getHeight();
-      doc.addImage(imgData, "PNG", 10, 10);
-      doc.save("sample-file.pdf");
+    const doc = new Document({
+      sections: [
+        {
+          properties: {},
+          children: text,
+        },
+      ],
     });
+    saveDocumentToFile(doc, `${no}.docx`);
   };
 
   const toggleSave = e => {
@@ -147,7 +157,7 @@ export default function Item({ no }) {
                     />
                   </svg>
                   <svg
-                    onClick={handlePDFDownload}
+                    onClick={handleDocDownload}
                     xmlns="http://www.w3.org/2000/svg"
                     className="icon h-6 w-6 mr-2 inline-block rounded-lg bookmark-border p-1 rounded-full cursor-pointer"
                     viewBox="0 0 20 20"

@@ -32,11 +32,14 @@ export default function Home() {
         "Content-Type": "application/x-www-form-urlencoded",
       };
       //api call
-      //TODO
       axios
-        .post(`https://140.112.107.1:5000/`, qs.stringify({ text }), {
-          headers: headers,
-        })
+        .post(
+          `https://9763-2001-288-1001-106-75f5-7fb9-f367-113.ngrok.io/`,
+          qs.stringify({ text }),
+          {
+            headers: headers,
+          }
+        )
         .then(res => {
           console.log(res);
           setPotentialLaws(res.data[0]);

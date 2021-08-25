@@ -55,7 +55,9 @@ export default function Item({ type, court, no, sys, reason, mainText }) {
           <h1 className="text-black text-lg font-bold mb-2">
             {court} {no} {reason} {sys}{" "}
           </h1>
-          <div className="text-gray-600 w-11/12">{mainText}</div>
+          <div className="text-gray-600 w-11/12">
+            {mainText.length >= 107 ? `${mainText.slice(0, 107)}...` : mainText}
+          </div>
         </div>
       </div>
     </Link>

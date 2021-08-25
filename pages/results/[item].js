@@ -16,6 +16,7 @@ export default function Item({ no }) {
   const { items, savedIds, setSavedIds } = useAppContext();
   const [itemObj, setItemObj] = useState({});
   const [isSaved, setIsSaved] = useState(false);
+  const [filteredRelatedIssues, setFilteredRelatedIssues] = useState([]);
 
   useEffect(() => {
     let match = false;
@@ -30,6 +31,19 @@ export default function Item({ no }) {
       router.push("/");
     }
   }, []);
+
+  useEffect(() => {
+    if (Object.keys(itemObj).length !== 0) {
+      const newRelatedIssues = [itemObj.relatedIssues[0]];
+      for (let i = 1; i < itemObj.relatedIssues.length; i++) {
+        const issues = itemObj.relatedIssues;
+        if (issues[i].issueRef !== issues[i - 1].issueRef) {
+          newRelatedIssues.push(issues[i]);
+        }
+      }
+      setFilteredRelatedIssues(newRelatedIssues);
+    }
+  }, [itemObj]);
 
   const handleCopyText = e => {
     navigator.clipboard.writeText(itemObj.judgement);
@@ -234,8 +248,8 @@ export default function Item({ no }) {
             <div className="p-6 overflow-auto border-t border-gray-400 h-75vh">
               <h1 className="title-color text-lg font-bold">相關條文</h1>
               <div className="mt-2">
-                {itemObj?.relatedIssues &&
-                  itemObj?.relatedIssues.map((issue, i) => (
+                {filteredRelatedIssues &&
+                  filteredRelatedIssues.map((issue, i) => (
                     <ItemLink
                       key={i}
                       lawName={issue.lawName}

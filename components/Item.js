@@ -64,9 +64,7 @@ export default function Item(item) {
             {court} {no} {reason} {sys}{" "}
           </h1>
           <div className="text-gray-600 w-11/12">
-            字數:
-            {Array.isArray(item.judgement) ? 1380 : item.judgement.length}
-            {/* {mainText.length >= 107 ? `${mainText.slice(0, 107)}...` : mainText} */}
+            {mainText.length >= 107 ? `${mainText.slice(0, 107)}...` : mainText}
           </div>
         </div>
       </div>

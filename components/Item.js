@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useAppContext } from "../pages/_app";
 
 export default function Item(item) {
+  console.log(item);
   // const router = useRouter();
   const { type, court, no, sys, reason, mainText } = item;
   const { savedIds, setSavedIds, savedItems, setSavedItems } = useAppContext();
@@ -63,7 +64,9 @@ export default function Item(item) {
             {court} {no} {reason} {sys}{" "}
           </h1>
           <div className="text-gray-600 w-11/12">
-            {mainText.length >= 107 ? `${mainText.slice(0, 107)}...` : mainText}
+            字數:
+            {Array.isArray(item.judgement) ? 1380 : item.judgement.length}
+            {/* {mainText.length >= 107 ? `${mainText.slice(0, 107)}...` : mainText} */}
           </div>
         </div>
       </div>

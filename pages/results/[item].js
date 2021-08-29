@@ -135,7 +135,7 @@ export default function Item({ no }) {
       setSavedItems(newSavedItems);
     } else {
       setSavedIds([...savedIds, no]);
-      setSavedItems([...savedItems, itemObj]);
+      setSavedItems([itemObj, ...savedItems]);
     }
   };
 

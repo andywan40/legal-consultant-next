@@ -22,7 +22,7 @@ export default function Page({ children }) {
           rel="stylesheet"
         />
         <script src="https://cdn.rawgit.com/progers/pathseg/master/pathseg.js"></script>
-        <title>Legalable</title>
+        <title>Legalabel</title>
       </Head>
       <main className="text-gray-400 main-background body-font">
         <Navbar />

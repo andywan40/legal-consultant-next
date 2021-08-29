@@ -10,7 +10,7 @@ export default function Navbar() {
         >
           <a className="col-start-2 col-span-4">
             <h1 className="uppercase font-content font-bold text-xl">
-              Legalable
+              Legalabel
             </h1>
           </a>
         </Link>{" "}

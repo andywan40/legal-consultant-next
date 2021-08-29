@@ -16,6 +16,7 @@ function MyApp({ Component, pageProps }) {
   const [items, setItems] = useState([]);
   const [potentialLaws, setPotentialLaws] = useState([]);
   const [savedIds, setSavedIds] = useState([]);
+  const [savedItems, setSavedItems] = useState([]);
   const router = useRouter();
   const protectedRoutes = ["/dashboard"];
 
@@ -24,6 +25,7 @@ function MyApp({ Component, pageProps }) {
     //   setShowMenu(false);
     // };
     setItems(JSON.parse(localStorage.getItem("items")) || []);
+    setSavedItems(JSON.parse(localStorage.getItem("savedItems")) || []);
     setPotentialLaws(JSON.parse(localStorage.getItem("potentialLaws")) || []);
     setSavedIds(JSON.parse(localStorage.getItem("savedIds")) || []);
     setMounted(true);
@@ -45,6 +47,8 @@ function MyApp({ Component, pageProps }) {
           setPotentialLaws,
           savedIds,
           setSavedIds,
+          savedItems,
+          setSavedItems,
         }}
       >
         {/* <AuthorizedRoute protectedRoutes={protectedRoutes}> */}

@@ -4,20 +4,20 @@ import Item from "../components/Item";
 import Page from "../components/Page";
 
 export default function saved() {
-  const { items, savedIds } = useAppContext();
-  const [savedItems, setSavedItems] = useState([]);
+  const { items, savedIds, savedItems, setSavedItems } = useAppContext();
+  // const [savedItems, setSavedItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [selected, setSelected] = useState("all");
 
-  useEffect(() => {
-    let newSavedItems = [];
-    items.forEach(item => {
-      if (savedIds.includes(item.no)) {
-        newSavedItems.push(item);
-      }
-    });
-    setSavedItems(newSavedItems);
-  }, []);
+  // useEffect(() => {
+  //   let newSavedItems = [];
+  //   items.forEach(item => {
+  //     if (savedIds.includes(item.no)) {
+  //       newSavedItems.push(item);
+  //     }
+  //   });
+  //   setSavedItems(newSavedItems);
+  // }, []);
 
   useEffect(() => {
     if (selected === "all") {
@@ -74,17 +74,7 @@ export default function saved() {
           </div>
           <div className="pb-6 overflow-auto h-75vh">
             {filteredItems.length !== 0 ? (
-              filteredItems.map(item => (
-                <Item
-                  key={item.no}
-                  type={item.type}
-                  court={item.court}
-                  no={item.no}
-                  sys={item.sys}
-                  reason={item.reason}
-                  mainText={item.mainText}
-                />
-              ))
+              filteredItems.map(item => <Item key={item.no} {...item} />)
             ) : (
               <h1 className="text-center text-black text-xl mt-10">無資料</h1>
             )}

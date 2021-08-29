@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import Navbar from "./Navbar";
-import Footer from "./Footer";
+// import Footer from "./Footer";
 
 export default function Page({ children }) {
   return (
@@ -28,7 +28,7 @@ export default function Page({ children }) {
         <Navbar />
         <div className="flex justify-center">{children}</div>
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

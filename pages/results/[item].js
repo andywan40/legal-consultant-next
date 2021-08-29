@@ -10,16 +10,26 @@ import ItemLink from "../../components/ItemLink";
 // import { jsPDF } from "jspdf";
 // import { toPng, toJpeg, toBlob, toPixelData, toSvg } from "html-to-image";
 // import download from "downloadjs";
+//TODO get data
 
 export default function Item({ no }) {
   const router = useRouter();
-  const { items, savedIds, setSavedIds } = useAppContext();
+  const { items, savedIds, setSavedIds, savedItems, setSavedItems } =
+    useAppContext();
   const [itemObj, setItemObj] = useState({});
   const [isSaved, setIsSaved] = useState(false);
   const [filteredRelatedIssues, setFilteredRelatedIssues] = useState([]);
 
   useEffect(() => {
     let match = false;
+    for (let savedItem of savedItems) {
+      if (savedItem.no === no) {
+        setItemObj({ ...savedItem, date: new Date(savedItem.date) });
+        match = true;
+        break;
+      }
+    }
+    if (match) return true;
     for (let item of items) {
       if (item.no === no) {
         setItemObj({ ...item, date: new Date(item.date) });
@@ -120,9 +130,12 @@ export default function Item({ no }) {
     e.stopPropagation();
     if (savedIds.includes(no)) {
       let newSavedIds = savedIds.filter(id => id !== no);
+      let newSavedItems = savedItems.filter(item => item.no !== no);
       setSavedIds(newSavedIds);
+      setSavedItems(newSavedItems);
     } else {
       setSavedIds([...savedIds, no]);
+      setSavedItems([...savedItems, itemObj]);
     }
   };
 
@@ -133,7 +146,8 @@ export default function Item({ no }) {
       setIsSaved(false);
     }
     localStorage.setItem("savedIds", JSON.stringify(savedIds));
-  }, [savedIds]);
+    localStorage.setItem("savedItems", JSON.stringify(savedItems));
+  }, [savedIds, savedItems]);
 
   return (
     <Page>

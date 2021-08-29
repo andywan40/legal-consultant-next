@@ -22,6 +22,17 @@ export default function results() {
     }
   }, [selected, items]);
 
+  const potentialLawsSortingFunc = (a, b) => {
+    const a1 = parseInt(a[0].split(" ")[0]);
+    const b1 = parseInt(b[0].split(" ")[0]);
+    if (a1 === b1) {
+      const a2 = parseInt(a[0].split(" ")[1]) || 0;
+      const b2 = parseInt(b[0].split(" ")[1]) || 0;
+      return a2 - b2;
+    }
+    return a1 - b1;
+  };
+
   return (
     <Page>
       <div className="grid grid-cols-8 max-h-screen w-full py-20 ">
@@ -66,12 +77,13 @@ export default function results() {
               filteredItems.map(item => (
                 <Item
                   key={item.no}
-                  type={item.type}
-                  court={item.court}
-                  no={item.no}
-                  sys={item.sys}
-                  reason={item.reason}
-                  mainText={item.mainText}
+                  {...item}
+                  // type={item.type}
+                  // court={item.court}
+                  // no={item.no}
+                  // sys={item.sys}
+                  // reason={item.reason}
+                  // mainText={item.mainText}
                 />
               ))
             ) : (
@@ -85,7 +97,7 @@ export default function results() {
             <h1 className="title-color text-lg font-bold">可能適用條文</h1>
             <div className="mt-2">
               {potentialLaws &&
-                potentialLaws.map((law, i) => {
+                potentialLaws.sort(potentialLawsSortingFunc).map((law, i) => {
                   let content = "";
                   if (Array.isArray(law[1])) {
                     for (let el of law[1]) {

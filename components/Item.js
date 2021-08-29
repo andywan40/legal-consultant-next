@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import { useAppContext } from "../pages/_app";
 
-export default function Item({ type, court, no, sys, reason, mainText }) {
-  const router = useRouter();
-  const { savedIds, setSavedIds } = useAppContext();
+export default function Item(item) {
+  // const router = useRouter();
+  const { type, court, no, sys, reason, mainText } = item;
+  const { savedIds, setSavedIds, savedItems, setSavedItems } = useAppContext();
   const [isSaved, setIsSaved] = useState(false);
   const toggleSave = e => {
     e.stopPropagation();
     if (savedIds.includes(no)) {
       let newSavedIds = savedIds.filter(id => id !== no);
+      let newSavedItems = savedItems.filter(item => item.no !== no);
       setSavedIds(newSavedIds);
+      setSavedItems(newSavedItems);
     } else {
       setSavedIds([...savedIds, no]);
+      setSavedItems([...savedItems, item]);
     }
   };
+
   useEffect(() => {
     if (savedIds.includes(no)) {
       setIsSaved(true);
@@ -23,7 +28,9 @@ export default function Item({ type, court, no, sys, reason, mainText }) {
       setIsSaved(false);
     }
     localStorage.setItem("savedIds", JSON.stringify(savedIds));
-  }, [savedIds]);
+    localStorage.setItem("savedItems", JSON.stringify(savedItems));
+  }, [savedIds, savedItems]);
+
   return (
     <Link href="/results/[no]" as={`/results/${no}`}>
       <div className="item shadow px-5 py-5 bg-white w-full my-5 rounded-md cursor-pointer">

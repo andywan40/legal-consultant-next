@@ -41,7 +41,7 @@ export default function Home() {
           }
         )
         .then(res => {
-          console.log(res);
+          // console.log(res);
           setPotentialLaws(res.data[0]);
           setItems(res.data[1]);
           localStorage.setItem("items", JSON.stringify(res.data[1]));
@@ -50,7 +50,7 @@ export default function Home() {
           //setIsLoading(false);
         })
         .catch(e => {
-          console.log(e);
+          // console.log(e);
           alert("錯誤，稍後再試");
           setIsLoading(false);
         });

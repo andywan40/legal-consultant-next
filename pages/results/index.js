@@ -8,6 +8,7 @@ export default function results() {
   const { items, potentialLaws } = useAppContext();
   const [filteredItems, setFilteredItems] = useState(items);
   const [selected, setSelected] = useState("all");
+  const [sortedLaws, setSortedLaws] = useState([]);
   useEffect(() => {
     if (selected === "all") {
       setFilteredItems(items);
@@ -22,16 +23,30 @@ export default function results() {
     }
   }, [selected, items]);
 
-  const potentialLawsSortingFunc = (a, b) => {
-    const a1 = parseInt(a[0].split(" ")[0]);
-    const b1 = parseInt(b[0].split(" ")[0]);
-    if (a1 === b1) {
-      const a2 = parseInt(a[0].split(" ")[1]) || 0;
-      const b2 = parseInt(b[0].split(" ")[1]) || 0;
-      return a2 - b2;
+  useEffect(() => {
+    const sortingFunc = (a, b) => {
+      const a1 = parseInt(a[0].split(" ")[0]);
+      const b1 = parseInt(b[0].split(" ")[0]);
+      if (a1 === b1) {
+        const a2 = parseInt(a[0].split(" ")[1]) || 0;
+        const b2 = parseInt(b[0].split(" ")[1]) || 0;
+        return a2 - b2;
+      }
+      return a1 - b1;
+    };
+    const first = [];
+    const second = [];
+    for (let law of potentialLaws) {
+      if (parseInt(law[0].split(" ")[0]) > 100) {
+        first.push(law);
+      } else {
+        second.push(law);
+      }
     }
-    return a1 - b1;
-  };
+    first.sort(sortingFunc);
+    second.sort(sortingFunc);
+    setSortedLaws([...first, ...second]);
+  }, [potentialLaws]);
 
   return (
     <Page>
@@ -96,8 +111,8 @@ export default function results() {
           <div className="pl-8 pr-2 py-10 overflow-auto h-75vh">
             <h1 className="title-color text-lg font-bold">可能適用條文</h1>
             <div className="mt-2">
-              {potentialLaws &&
-                potentialLaws.sort(potentialLawsSortingFunc).map((law, i) => {
+              {sortedLaws.length !== 0 &&
+                sortedLaws.map((law, i) => {
                   let content = "";
                   if (Array.isArray(law[1])) {
                     for (let el of law[1]) {

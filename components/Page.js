@@ -9,8 +9,8 @@ export default function Page({ children }) {
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta charSet="utf-8" />
-        <meta name="description" content="Legalable"></meta>
-        <link rel="icon" href="/title_logo.png" />
+        <meta name="description" content="Legalabel"></meta>
+        <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"

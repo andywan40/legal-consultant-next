@@ -6,7 +6,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import SearchIcon from "@material-ui/icons/Search";
 import { useAppContext } from "./_app";
 import Page from "../components/Page";
-import { data } from "../helpers/data";
 
 export default function Home() {
   const router = useRouter();
